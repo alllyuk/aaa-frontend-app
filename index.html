@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Загрузка файла</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container py-5">
+    <h1 class="text-center mb-4">Добро пожаловать в мир OCR</h1>
+
+    <div class="alert alert-danger text-center" role="alert">
+      ⚠️ Произошла ошибка при обработке изображения. Попробуйте снова.
+    </div>
+
+    <div class="text-center mb-4">
+      <img src="https://icon-library.com/images/ocr-icon/ocr-icon-19.jpg" class="img-fluid rounded w-25" alt="Картинка OCR">
+    </div>
+
+    <form class="mb-5">
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Выберите картинку для загрузки</label>
+        <input class="form-control" type="file" id="formFile">
+        <div class="form-text">После загрузки можно будет распознать текст на картинке.</div>
+      </div>
+      <button type="submit" class="btn btn-primary">Распознать текст</button>
+    </form>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Текст</th>
+            <th>Уверенность</th>
+            <th>Расположение</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Иван Иванов</td>
+            <td>100%</td>
+            <td>Слева</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Анна Смирнова</td>
+            <td>42%</td>
+            <td>Сверху справа</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Алексей Корнелюк</td>
+            <td>2%</td>
+            <td>Посередине</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
