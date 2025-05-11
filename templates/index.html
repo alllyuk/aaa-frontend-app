@@ -10,30 +10,79 @@
     />
   </head>
   <body>
-    <nav class="navbar bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-          <img src="/static/avito.svg" alt="avito" />
-        </a>
+    <div class="container py-1">
+      <nav class="navbar bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">
+            <img src="/static/avito.svg" alt="avito" />
+          </a>
+        </div>
+      </nav>
+
+      {% if not words and not error and not image %}
+      <div class="container mt-3">
+        <h1 class="text-center mb-4">Добро пожаловать в мир OCR</h1>
       </div>
-    </nav>
+      {% endif %}
 
-    <!-- этот блок можно удалять -->
-    <div class="container">
-      <p class="text-center">
-        Шаблон подключился! Теперь на его базе можно начинать делать веб
-        приложение.
-      </p>
-      <p class="text-center">
-        Удали этот блок и скопируй сюда содержимое тега <code>body</code> из
-        домашнего задания с занятия 2.
-      </p>
-    </div>
-    <!-- блок выше можно удалять -->
+      {% if image %}
+      <div class="text-center mb-4">
+        <img
+        src="{{ image }}"
+        class="img-fluid rounded w-25"
+        alt="Картинка OCR">
+      </div>
+      {% endif %}
 
-    <footer class="container mt-5">
-      <p class="text-center text-muted">© 2025 Академия Аналитиков Авито</p>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      {% if error %}
+      <div class="alert alert-danger text-center" role="alert">
+        {{ error }}
+      </div>
+      {% endif %}
+
+      <form class="mb-5" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Выберите картинку для загрузки</label>
+          <input class="form-control" type="file" name="file" id="formFile">
+          <div class="form-text">После загрузки можно будет распознать текст на картинке.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Распознать текст</button>
+      </form>
+
+      {% if words %}
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center">
+          <thead class="table-dark">
+            <tr>
+              <th>Текст</th>
+              <th>Точность</th>
+              <th>Изображение</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for word in words %}
+            <tr>
+              <td> {{ word.word }} </td>
+              <td
+              class = "
+              {% if word.accuracy > 0.95 %}
+              table-success
+              {% elif word.accuracy > 0.85 %}
+              table-warning
+              {% elif word.accuracy < 0.5 %}
+              table-danger
+              {% endif %}
+              "
+              >
+              {{ "%2.2f" | format(word.accuracy * 100) }} </td>
+              <td> <img src="{{ word.image }}" ></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+  </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
